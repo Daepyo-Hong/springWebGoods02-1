@@ -12,8 +12,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class MyFileUtils {
-	
-	
 
 	//파일업로드 처리이후 DB에저장할 GoodsImg Entity객체를 리턴
 	public static GoodsImg fileUploadAndGetEntity(MultipartFile img, String uploadPath) {
@@ -49,7 +47,7 @@ public class MyFileUtils {
 		ClassPathResource temp=new ClassPathResource("static"+uploadPath+"temp");
 		try {
 			File target=new File( temp.getFile(), img.getOriginalFilename());
-			
+
 			System.out.println(">>>temp -> goods : "+ target.renameTo(new File(temp.getFile().getParent(), img.getOriginalFilename())));
 			
 			

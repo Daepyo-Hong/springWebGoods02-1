@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+	<style>
+		.flex{
+			display: flex;
+		}
+		.view-size{
+			width: 980px; margin: 0 auto;
+		}
+		#def-img{
+			width: 490px;
+			height: 490px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+		.img{
+			width: 50px;
+			height: 50px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+		li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<a href="/">HOME</a>
+	<a href="/goods-reg">상품등록</a>
+	<p>상품 상세 페이지</p>
+	<section class="view-size" th:if="${detail}">
+		<div class="flex">
+			<div>
+				<div id="def-img" th:style="|background-image: url('${detail.defImg}');|">
+					<!--큰이미지-->
+				</div>
+				<ul class="flex" >
+					<li class="img" th:each="imgUrl:${detail.imgs}"
+						th:style="|background-image: url('${imgUrl}');|"><!--작은이미지들--></li>
+				</ul>
+			</div>
+			<ol>
+				<li th:text="${detail.title}">상품명</li>
+				<li th:text="${detail.price}">가격</li>
+				<li th:text="${detail.stock}">재고수량</li>
+			</ol>
+		</div>
+		<div th:utext="${detail.content}">내용영역</div>
+		<div >[(${detail.content})]</div>
+	</section>
+</body>
+</html>

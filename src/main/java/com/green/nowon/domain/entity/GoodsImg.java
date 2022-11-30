@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 //@ToString(exclude = "goods")
 @Getter
@@ -45,7 +44,13 @@ public class GoodsImg extends BaseEntity{
 	@JoinColumn(name = "gno")
 	@ManyToOne(cascade = CascadeType.DETACH )//N:1관계에서 물리FK 무조건 다쪽 테이블에생성
 	private Goods goods;
-	
-	
+
+	private boolean def;
+
+	//대표이미지를 세팅해주는 편의메서드
+	public GoodsImg def(boolean b) {
+		this.def=b;
+		return this;
+	}
 
 }

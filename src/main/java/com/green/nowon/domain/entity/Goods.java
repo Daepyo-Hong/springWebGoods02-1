@@ -2,15 +2,9 @@ package com.green.nowon.domain.entity;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 
 //@ToString(exclude = "imgs")
@@ -44,10 +37,31 @@ public class Goods  extends BaseEntity{
 	private int stock;
 	
 	//양방향설정
+	@JoinColumn(name = "gno")
 	@Builder.Default
-	@OneToMany(mappedBy = "goods")
+	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	List<GoodsImg> imgs=new Vector<>();
-	
-	
+
+	//이미지 삽입 편의메서드
+	public Goods addImg(GoodsImg img){
+		imgs.add(img);
+		return this;
+	}
+
+	public String defImgUrl(){
+		GoodsImg defImg = imgs.get(0);
+		return defImg.getUrl()+defImg.getName();
+	}
+	//대표이미지만 추출하는 메서드
+	public GoodsImg defImg(){
+
+		for(GoodsImg img:imgs){
+			if(img.isDef()==true){
+				return img;
+			}
+		}
+		return null;
+	}
+
 
 }
