@@ -9,10 +9,14 @@ public interface GoodsService {
 
 	String tempUpload(MultipartFile img);
 
-	void save(GoodsInsertDTO dto, MultipartFile[] img);
+	void save(GoodsInsertDTO dto, MultipartFile[] imgs);
 
     void findAll(Model model);
 
 
 	void detail(long gno, Model model);
+
+    void adminDetail(long gno, Model model);
+
+    void save(GoodsInsertDTO dto, MultipartFile[] imgs, String[] newName);
 }

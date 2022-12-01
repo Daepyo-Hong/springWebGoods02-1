@@ -50,7 +50,7 @@ public class Goods  extends BaseEntity{
 
 	public String defImgUrl(){
 		GoodsImg defImg = imgs.get(0);
-		return defImg.getUrl()+defImg.getName();
+		return defImg.getUrl()+defImg.getNewName();
 	}
 	//대표이미지만 추출하는 메서드
 	public GoodsImg defImg(){

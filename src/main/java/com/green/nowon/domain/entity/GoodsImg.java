@@ -34,17 +34,19 @@ public class GoodsImg extends BaseEntity{
 	@GeneratedValue(generator = "gen_seq_img", strategy = GenerationType.SEQUENCE)
 	private long ino;
 	@Column(nullable = false)
-	private String url;
+	private String url;		//경로
 	@Column(nullable = false)
-	private String name;
+	private String orgName;	// 오리지날 파일이름
+	@Column(nullable = false)
+	private String newName;	// 새로운 파일이름
 	@Column(nullable = false)
 	private long size;
-	
+	/*
 	//양방향설정 GoodsImg 주엔티티
 	@JoinColumn(name = "gno")
 	@ManyToOne(cascade = CascadeType.DETACH )//N:1관계에서 물리FK 무조건 다쪽 테이블에생성
 	private Goods goods;
-
+	*/
 	private boolean def;
 
 	//대표이미지를 세팅해주는 편의메서드

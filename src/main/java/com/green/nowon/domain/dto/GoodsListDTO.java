@@ -27,6 +27,8 @@ public class GoodsListDTO {
 		this.stock = e.getStock();
 		this.updatedDate=e.getUpdatedDate();
 		GoodsImg img = e.defImg();
-		this.imgUrl = img.getUrl()+img.getName();
+		if(img!=null) {
+			this.imgUrl = img.getUrl() + img.getNewName();
+		}
 	}
 }

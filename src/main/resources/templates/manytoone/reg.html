@@ -49,6 +49,7 @@
 							.css("background-image","url("+url+")")
 							.css("background-color","transparent");
 
+					$(file).siblings(".new-name").val(url);
 					//input 파일 개수(.img개수) 체크후에 5개미만이면 show();
 					if($(".img").length<5)
 						$("#btn-addimg").show();
@@ -64,6 +65,7 @@
 			<span class="img">
 				<label class="pre-img" for="img_${idx}">+</label>
 				<input type="file" id="img_${idx}" name="img" placeholder="상품이미지" onchange="imgSizeCheck(this)">
+				<input type="hidden" class="new-name" name="newName">
 				<button type="button" class="add-cancel" onclick="cancelClicked(this)">X</button>
 			</span>
 					`;
@@ -122,6 +124,7 @@
 				<span class="img">
 					<label class="pre-img" for="def">+</label>
 					<input type="file" id="def" name="img" placeholder="상품이미지" onchange="imgSizeCheck(this)">
+					<input type="hidden" class="new-name" name="newName">
 				</span>
 				<!-- $("#imgs").after(addTag); -->
 				<!-- div태그의 제일 마지막위치에 삽입 -->

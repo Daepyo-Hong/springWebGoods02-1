@@ -17,13 +17,14 @@ public class GoodsDetailDTO {
 	private int stock;
 	private String content;
 	private LocalDateTime updatedDate;
+	private LocalDateTime createdDate;
 
 	private String defImg;
 	//이미지 테이블에 저장되어 있음
-	private List<String> imgs;
+	private List<String> imgs;	//defImg 포함
 
     public String imgUrl(GoodsImg img){
-        return img.getUrl()+img.getName();
+        return img.getUrl()+img.getNewName();
     }
 
 	public GoodsDetailDTO(Goods e) {
@@ -32,7 +33,9 @@ public class GoodsDetailDTO {
 		this.price = e.getPrice();
 		this.stock = e.getStock();
 		this.content=e.getContent();
+
 		this.updatedDate=e.getUpdatedDate();
+		this.createdDate=e.getCreatedDate();
 		this.defImg=e.defImgUrl();
 
 		//Goods 와 연결관계에 있는 GoodsImg 엔티티에 접근하므로

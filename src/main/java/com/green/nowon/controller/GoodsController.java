@@ -27,7 +27,7 @@ public class GoodsController {
 	@GetMapping("/manytoone")
 	public String goods(Model model) {	//DB에서 얻어온 데이터를 페이지에 전달위한 Model객체필요
 		service.findAll(model);
-		return "manytoone/list";
+		return "manytoone/admin-list";
 	}
 	@ResponseBody
 	@PostMapping("/img-temploading")
@@ -36,8 +36,9 @@ public class GoodsController {
 	}
 	
 	@PostMapping("/manytoone")
-	public String goods(GoodsInsertDTO dto, MultipartFile[] img) {
-		service.save(dto, img);
+	public String goods(GoodsInsertDTO dto, MultipartFile[] img, String[] newName) {
+		//service.save(dto, img);
+		service.save(dto, img, newName);
 		return "redirect:/manytoone";
 	}
 
@@ -47,4 +48,14 @@ public class GoodsController {
 		service.detail(gno, model);
 		return "manytoone/detail";
 	}
+
+	//관리자 상품 디테일 페이지
+	@GetMapping("/admin/goods/{gno}")
+	public String adminEdit(@PathVariable long gno, Model model){
+		service.adminDetail(gno, model);
+		return "manytoone/admin-detail";
+	}
+
+
+
 }

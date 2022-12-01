@@ -39,6 +39,32 @@ public class GoodsServiceProcess implements GoodsService {
 	}
 
 
+	//원본이미지+새로운이름까지 저정한경우
+	@Override
+	public void save(GoodsInsertDTO dto, MultipartFile[] imgs, String[] newName) {
+		//파일저장 : 파일엔티티가 필요, temp->goods
+		Goods goods=dto.toEntity();
+		for(int i=0;i<imgs.length;i++) {
+			//이미지파일이 없으면(size==0) 파일저장 막음
+			if(imgs[i].getSize()==0){
+				System.out.println("정상적인 이미지가 아니어서 객체생성하지않고 패스");
+				continue;
+			}
+
+			// 경로/파일이름
+			String[] strs=newName[i].split("/");
+			GoodsImg imgEntity = MyFileUtils.tempToGoods(imgs[i],strs[strs.length-1], GOODS_PATH);
+			//첫번째것을 대표이미지로 설정
+			if(i==0){
+				imgEntity.def(true);
+			}
+			goods.addImg(imgEntity);
+		}
+		goodsRepository.save(goods);
+
+	}
+
+	//원본이미지 이름으로 저장한경우
 	@Override
 	public void save(GoodsInsertDTO dto, MultipartFile[] imgs) {
 
@@ -77,6 +103,12 @@ public class GoodsServiceProcess implements GoodsService {
 				.map(GoodsDetailDTO::new)
 				.orElseThrow();
 		model.addAttribute("detail",result);
+	}
+
+	@Override
+	public void adminDetail(long gno, Model model) {
+		detail(gno, model);
+
 	}
 
 

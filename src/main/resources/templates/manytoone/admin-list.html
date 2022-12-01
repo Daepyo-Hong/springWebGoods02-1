@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+
 	<style>
 		.list-img{
 			display: inline-block;
@@ -20,6 +21,7 @@
 	<p>상품 리스트 페이지</p>
 	<table border="1">
 		<tr>
+			<td>구분</td>
 			<td>상품번호</td>
 			<td>list이미지</td>
 			<td>상품명</td>
@@ -28,19 +30,16 @@
 			<td>등록일</td>
 		</tr>
 		<tr th:each="dto:${list}" th:onclick="|goodsClicked(${dto.gno})|">
+			<td><a th:href="|/admin/goods/${dto.gno}|"><button type="button">수정</button></a></td>
 			<td>[[${dto.gno}]]</td>
 			<td class="list-img" th:style="|background-image: url('${dto.imgUrl}');|"></td>
-			<td>[[${dto.title}]]</td>
+			<td>>[[${dto.title}]]</td>
 			<td th:text="${dto.price}">상품가격</td>
 			<td th:text="${dto.stock}">주문가능수량</td>
 			<td th:text="${dto.updatedDate}">등록일</td>
 		</tr>
 
 	</table>
-	<script type="text/javascript">
-		function goodsClicked(gno){
-			location.href=`/goods/${gno}`;
-		}
-	</script>
+
 </body>
 </html>
