@@ -48,7 +48,10 @@
 					$(file).siblings(".pre-img")
 							.css("background-image","url("+url+")")
 							.css("background-color","transparent");
-					$("#btn-addimg").show();
+
+					//input 파일 개수(.img개수) 체크후에 5개미만이면 show();
+					if($(".img").length<5)
+						$("#btn-addimg").show();
 				}
 			});
 
@@ -61,6 +64,7 @@
 			<span class="img">
 				<label class="pre-img" for="img_${idx}">+</label>
 				<input type="file" id="img_${idx}" name="img" placeholder="상품이미지" onchange="imgSizeCheck(this)">
+				<button type="button" class="add-cancel" onclick="cancelClicked(this)">X</button>
 			</span>
 					`;
 			idx++;
@@ -69,8 +73,19 @@
 
 			$("#btn-addimg").hide();
 		}
+
+		//X를 누르면 .img태그를 제거
+		function cancelClicked(btnel){
+			//$(btnel).parent().remove();
+			$(btnel).parents(".img").remove();
+			$("#btn-addimg").show();
+		}
 	</script>
 	<style type="text/css">
+		.add-cancel{
+			color: red;
+			padding: 0.5em;
+		}
 		#btn-addimg{
 			display: none;
 		}

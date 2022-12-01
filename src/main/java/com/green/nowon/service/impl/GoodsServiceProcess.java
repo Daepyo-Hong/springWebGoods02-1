@@ -38,12 +38,19 @@ public class GoodsServiceProcess implements GoodsService {
 		return MyFileUtils.fileUpload(img, TEMP_PATH);
 	}
 
+
 	@Override
 	public void save(GoodsInsertDTO dto, MultipartFile[] imgs) {
 
 		//파일저장 : 파일엔티티가 필요, temp->goods
 		Goods goods=dto.toEntity();
 		for(int i=0;i<imgs.length;i++) {
+			//이미지파일이 없으면(size==0) 파일저장 막음
+			if(imgs[i].getSize()==0){
+				System.out.println("정상적인 이미지가 아니어서 객체생성하지않고 패스");
+				continue;
+			}
+
 			GoodsImg imgEntity = MyFileUtils.tempToGoods(imgs[i], GOODS_PATH);
 			//첫번째것을 대표이미지로 설정
 			if(i==0){

@@ -3,8 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+		$(function (){
+			$(".img").first().addClass("target");
+			$(".img").click(imgClicked);
+		});
+		function imgClicked(){
+			//모든 이미지에 표현된 빨간선 제거
+			$(".img").removeClass("target");
+			//선택된태그가 빨간외곽선 표현
+			$(this).addClass("target");
+			//def-img의 백그라운드 이미지를 변경
+			var url = $(this).css("background-image");
+			$("#def-img").css("background-image",url);
 
+		}
+	</script>
 	<style>
+		.target{border: 1px solid red;}
 		.flex{
 			display: flex;
 		}
@@ -24,6 +41,7 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: contain;
+			cursor: pointer;
 		}
 		li{
 			list-style: none;
@@ -44,7 +62,7 @@
 				</div>
 				<ul class="flex" >
 					<li class="img" th:each="imgUrl:${detail.imgs}"
-						th:style="|background-image: url('${imgUrl}');|"><!--작은이미지들--></li>
+						th:style="|background-image: url('${imgUrl}');|" ><!--작은이미지들--></li>
 				</ul>
 			</div>
 			<ol>
